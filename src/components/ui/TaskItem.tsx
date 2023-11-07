@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import Modal from "./Modal";
 import { DialogBody } from "@material-tailwind/react";
 import TaskEditForm from "../Forms/TaskEditForm";
-
+import { useDeleteTaskMutation } from "@/redux/feature/task/taskApi";
+import { toast } from "react-toastify";
+import LoadingSpinner from "./Loading";
 type TaskItemProps = {
+  id: string;
   title: string;
   priority: string;
   status: string;
@@ -14,12 +17,21 @@ type PropsType = {
 };
 
 const TaskItem = ({ task }: PropsType) => {
-  const { title, priority, status } = task;
-  console.log(task);
+  const { id, title, priority, status } = task;
+  const [deleteTask, taskOptions] = useDeleteTaskMutation();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
-
+  const handleDelete = async (id: string) => {
+    try {
+      const res = await deleteTask(id).unwrap();
+      if (res?.success) {
+        toast.success("task deleted successfully", { autoClose: 1000 });
+      }
+    } catch (err) {
+      toast.error("Failed to delete task", { autoClose: 1000 });
+    }
+  };
   // Define CSS classes for task priority and status
   const priorityClasses: { [key: string]: string } = {
     Low: "text-green-600",
@@ -47,9 +59,20 @@ const TaskItem = ({ task }: PropsType) => {
       >
         Edit
       </button>
+      <button
+        onClick={() => handleDelete(id)}
+        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 ml-3"
+      >
+        {taskOptions.isLoading ? (
+          <div className="flex items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          "Delete"
+        )}
+      </button>
       <Modal handleOpen={handleOpen} header="Task Edit Form" open={open}>
         <DialogBody>
-          {/* <TaskAddForm handleOpen={handleOpen} /> */}
           <TaskEditForm handleOpen={handleOpen} task={task} />
         </DialogBody>
       </Modal>
