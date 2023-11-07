@@ -1,33 +1,26 @@
 export const priorityOptions = [
   {
-    value: "HIGH",
     label: "High",
   },
   {
-    value: "MEDIUM",
     label: "Medium",
   },
   {
-    value: "LOW",
     label: "Low",
   },
   {
-    value: "NORMAL",
     label: "Normal",
   },
 ];
 
 export const statusOptions = [
   {
-    value: "TODO",
-    label: "To Do",
+    label: "Todo",
   },
   {
-    value: "COMPELETE",
-    label: "Complete",
+    label: "Completed",
   },
   {
-    value: "INPROGRESS",
     label: "Inprogress",
   },
 ];

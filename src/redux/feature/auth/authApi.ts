@@ -8,6 +8,7 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["user"],
     }),
     signin: builder.mutation({
       query: (data) => ({
@@ -15,6 +16,7 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["user"],
     }),
   }),
   overrideExisting: false,

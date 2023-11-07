@@ -3,7 +3,6 @@ import { useFormContext, Controller } from "react-hook-form";
 
 export type SelectOptions = {
   label: string;
-  value: string;
 };
 
 type SelectFieldProps = {
@@ -45,7 +44,7 @@ const SelectInput = ({
             placeholder={placeholder}
           >
             {options.map((option, idx) => (
-              <Option key={idx} value={option.value}>
+              <Option key={idx} value={option.label}>
                 {option.label}
               </Option>
             ))}

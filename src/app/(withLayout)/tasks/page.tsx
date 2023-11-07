@@ -5,10 +5,36 @@ import TaskItem from "@/components/ui/TaskItem";
 
 import React, { useState } from "react";
 import { DialogBody } from "@material-tailwind/react";
+import { useGetTasksQuery } from "@/redux/feature/task/taskApi";
+import Loading from "@/app/loading";
+import ErrorPage from "@/app/error";
 
 const AllTaskPage = () => {
+  const { data, isLoading, isSuccess, isError } = useGetTasksQuery({});
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  let content;
+  if (isLoading) {
+    content = <Loading />;
+  } else if (!isLoading && isError) {
+    content = <ErrorPage />;
+  } else if (!isLoading && !isError && isSuccess) {
+    content = (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {data?.data?.map((task: any) => {
+          return <TaskItem key={task.id} task={task} />;
+        })}
+      </div>
+    );
+    if (data?.meta?.total == 0) {
+      content = (
+        <div className="flex items-center justify-center h-full">
+          <p className="text-lg mb-6 text-red">No Task Added yet</p>
+        </div>
+      );
+    }
+  }
+
   return (
     <>
       <div className="flex justify-end">
@@ -19,43 +45,7 @@ const AllTaskPage = () => {
           Add Task
         </button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <TaskItem
-          task={{
-            priority: "High",
-            status: "InProgress",
-            title: "Complete task management website",
-          }}
-        />
-        <TaskItem
-          task={{
-            priority: "High",
-            status: "InProgress",
-            title: "Complete task management website",
-          }}
-        />
-        <TaskItem
-          task={{
-            priority: "High",
-            status: "InProgress",
-            title: "Complete task management website",
-          }}
-        />
-        <TaskItem
-          task={{
-            priority: "Medium",
-            status: "Completed",
-            title: "Complete task management website",
-          }}
-        />
-        <TaskItem
-          task={{
-            priority: "Low",
-            status: "Pending",
-            title: "Complete task management website",
-          }}
-        />
-      </div>
+      {content}
       <Modal handleOpen={handleOpen} header="Task Add Form" open={open}>
         <DialogBody>
           <TaskAddForm handleOpen={handleOpen} />

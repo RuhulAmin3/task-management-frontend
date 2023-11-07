@@ -2,7 +2,7 @@ import React from "react";
 
 function Sidebar() {
   return (
-    <div className="h-screen bg-blue-500 w-16 md:w-64 text-white">
+    <div className="min-h-screen overflow-hidden bg-blue-500 w-16 md:w-64 text-white">
       <div className="p-4">
         <ul>
           <li className="sm:mb-4 md:mb-4">

@@ -15,6 +15,7 @@ type PropsType = {
 
 const TaskItem = ({ task }: PropsType) => {
   const { title, priority, status } = task;
+  console.log(task);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -24,11 +25,12 @@ const TaskItem = ({ task }: PropsType) => {
     Low: "text-green-600",
     Medium: "text-yellow-600",
     High: "text-red-600",
+    Normal: "text-orange-600",
   };
 
   const statusClasses: { [key: string]: string } = {
-    Pending: "bg-yellow-200 text-yellow-800",
-    InProgress: "bg-blue-200 text-blue-800",
+    Todo: "bg-yellow-200 text-yellow-800",
+    Inprogress: "bg-blue-200 text-blue-800",
     Completed: "bg-green-200 text-green-800",
   };
 

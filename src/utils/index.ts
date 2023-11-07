@@ -1,4 +1,6 @@
 "use client";
+import { IUser } from "@/types";
+import { jwtDecode } from "jwt-decode";
 export const setIntoLocalStorage = (
   key: string,
   value: Record<string, any>
@@ -24,5 +26,13 @@ export const isLoggin = (key: string) => {
 export const removeFromLocalStorage = (key: string): void => {
   if (!key || typeof window !== "undefined") {
     localStorage.removeItem(key);
+  }
+};
+
+export const getUserInfo = (): IUser | undefined => {
+  const token = getFromLocalStorage("accessToken");
+  if (token) {
+    const decodedData = jwtDecode(token);
+    return decodedData as IUser;
   }
 };
