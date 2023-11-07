@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/",
+    baseUrl: "https://task-management-application-six.vercel.app/api/v1/",
     prepareHeaders: (headers) => {
       const token = getFromLocalStorage("accessToken");
       if (token) {
@@ -13,6 +13,6 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
   tagTypes: ["user", "task"],
 });

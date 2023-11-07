@@ -104,6 +104,7 @@ const Navbar = () => {
           <div>
             <div className="flex items-center justify-between gap-3">
               <input
+                onChange={(e) => handleInputChange(e.target.value)}
                 type="text"
                 placeholder="Search by title"
                 className="rounded-full py-2 px-3 bg-white text-gray-900 focus:outline-none flex-1 gap-3"
