@@ -1,12 +1,21 @@
 "use client";
 import React, { useState } from "react";
-import { Input } from "@material-tailwind/react";
+
+import { removeFromLocalStorage } from "@/utils";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const router = useRouter();
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    removeFromLocalStorage("accessToken");
+    toast.success("user logout successfully", { autoClose: 1000 });
+    router.push("/login");
   };
 
   return (
@@ -52,24 +61,60 @@ const Navbar = () => {
               )}
             </button>
           </div>
-          <div className="lg:flex hidden items-center">
+          <div className="lg:flex hidden items-center gap-2">
             <input
               type="text"
               placeholder="Search by title"
               className="rounded-full py-2 px-3 w-48 bg-white text-gray-900 focus:outline-none"
             />
+            <div className="text-white cursor-pointer" onClick={handleLogout}>
+              <svg
+                className="text-2xl"
+                stroke="currentColor"
+                fill="none"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
       {isOpen && (
-        <div className="lg:hidden">
-          <div className="container mx-auto mt-4">
-            <div className="lg:flex items-center">
+        <div className="lg:hidden mt-2">
+          <div>
+            <div className="flex items-center justify-between gap-3">
               <input
                 type="text"
                 placeholder="Search by title"
-                className="rounded-full py-2 px-3 bg-white text-gray-900 focus:outline-none w-[100%]"
+                className="rounded-full py-2 px-3 bg-white text-gray-900 focus:outline-none flex-1 gap-3"
               />
+              <div className="text-white cursor-pointer" onClick={handleLogout}>
+                <svg
+                  className="text-2xl"
+                  stroke="currentColor"
+                  fill="none"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                  <polyline points="16 17 21 12 16 7"></polyline>
+                  <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+              </div>
             </div>
           </div>
         </div>

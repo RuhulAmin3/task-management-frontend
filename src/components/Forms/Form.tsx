@@ -28,8 +28,6 @@ const Form = ({
   };
 
   useEffect(() => reset(defaultValues), [defaultValues, reset, methods]);
-
-  console.log(defaultValues);
   return (
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)}>

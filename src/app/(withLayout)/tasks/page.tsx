@@ -8,7 +8,6 @@ import { DialogBody } from "@material-tailwind/react";
 
 const AllTaskPage = () => {
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => setOpen(!open);
   return (
     <>
