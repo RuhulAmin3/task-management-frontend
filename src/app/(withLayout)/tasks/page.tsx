@@ -8,11 +8,27 @@ import { DialogBody } from "@material-tailwind/react";
 import { useGetTasksQuery } from "@/redux/feature/task/taskApi";
 import Loading from "@/app/loading";
 import ErrorPage from "@/app/error";
+import { useAppSelector, useDebounced } from "@/redux/app/hook";
 
 const AllTaskPage = () => {
-  const { data, isLoading, isSuccess, isError } = useGetTasksQuery({});
   const [open, setOpen] = useState(false);
+  const { searchText } = useAppSelector((state) => state.taskReducer);
+
+  const query: Record<string, any> = {};
   const handleOpen = () => setOpen(!open);
+
+  const debouncedTerm = useDebounced({
+    searchQuery: searchText as unknown as string,
+    delay: 600,
+  });
+  if (!!debouncedTerm) {
+    query["searchTerm"] = debouncedTerm;
+  }
+  const { data, isLoading, isSuccess, isError } = useGetTasksQuery({
+    ...query,
+  });
+
+  console.log(query);
   let content;
   if (isLoading) {
     content = <Loading />;

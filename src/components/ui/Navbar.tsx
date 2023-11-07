@@ -4,10 +4,18 @@ import React, { useState } from "react";
 import { removeFromLocalStorage } from "@/utils";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "@/redux/app/hook";
+import { addSearchText } from "@/redux/feature/task/taskSlice";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const handleInputChange = (value: string) => {
+    dispatch(addSearchText(value));
+  };
+
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
@@ -22,7 +30,9 @@ const Navbar = () => {
     <nav className="bg-blue-500 p-4">
       <div className="mx-auto">
         <div className="flex items-center justify-between">
-          <div className="text-white font-semibold text-xl">Task Manager</div>
+          <div className="text-white font-semibold text-xl cursor-pointer">
+            Task Manager
+          </div>
           <div className="lg:hidden">
             <button
               onClick={toggleNavbar}
@@ -63,6 +73,7 @@ const Navbar = () => {
           </div>
           <div className="lg:flex hidden items-center gap-2">
             <input
+              onChange={(e) => handleInputChange(e.target.value)}
               type="text"
               placeholder="Search by title"
               className="rounded-full py-2 px-3 w-48 bg-white text-gray-900 focus:outline-none"
