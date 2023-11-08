@@ -4,6 +4,10 @@ This project is [task-management-application](https://task-management-frontend-6
 
 #### Live Link: https://task-management-frontend-6cqf.vercel.app/
 
+### To check the task:
+
+- you can Login email: al@gmail.com, password:123456
+
 ### Some Feature of task-management-application
 
 - User can register / Login account after login user can see his own previous added task he can add new task with update delete functionality.
