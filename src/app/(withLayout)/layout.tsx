@@ -1,11 +1,9 @@
 "use client";
-import LoadingSpinner from "@/components/ui/Loading";
-import Navbar from "@/components/ui/Navbar";
-import Sidebar from "@/components/ui/Sidebar";
 import { isLoggin } from "@/utils";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Loading from "../loading";
+import Navbar from "@/components/ui/Navbar";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const isUserLogin = isLoggin("accessToken");
